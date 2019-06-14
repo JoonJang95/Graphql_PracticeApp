@@ -1,0 +1,28 @@
+{
+  "name": "graphql_practiceapp",
+  "version": "1.0.0",
+  "description": "A practice app to learn graphql",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/index.js",
+    "build": "webpack -d -w"
+  },
+  "author": "Joon Jang",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.34.0",
+    "webpack-cli": "^3.3.4"
+  },
+  "dependencies": {
+    "@babel/core": "^7.4.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.8.0",
+    "graphql": "^14.3.1",
+    "nodemon": "^1.19.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}

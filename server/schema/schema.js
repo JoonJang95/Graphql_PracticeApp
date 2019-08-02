@@ -6,7 +6,8 @@ const {
   GraphQLSchema,
   GraphQLInt,
   GraphQLID,
-  GraphQLList
+  GraphQLList,
+  GraphQLNonNull
 } = graphql;
 
 let books = [
@@ -14,25 +15,25 @@ let books = [
     name: "Book1",
     genre: "fantasy",
     id: "1",
-    authorId: "1"
+    authorIds: "2"
   },
   {
     name: "Book2",
     genre: "comedy",
     id: "2",
-    authorId: "2"
+    authorId: "1"
   },
   {
     name: "Book3",
     genre: "romCom",
     id: "3",
-    authorID: "3"
+    authorId: "5"
   },
   {
     name: "Book4",
     genre: "fantasy",
     id: "1",
-    authorId: "1"
+    authorId: "4"
   },
   {
     name: "Book5",
@@ -44,7 +45,7 @@ let books = [
     name: "Book6",
     genre: "romCom",
     id: "3",
-    authorID: "2"
+    authorId: "2"
   }
 ];
 
@@ -72,12 +73,13 @@ const BookType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     genre: { type: GraphQLString },
+    authorId: { type: GraphQLString },
     author: {
       type: AuthorType,
       resolve(parent, args) {
         let data;
         for (let author of authors) {
-          if (parent.id === author.id) {
+          if (parent.authorId === author.id) {
             data = author;
           }
         }
@@ -159,14 +161,14 @@ const Mutations = new GraphQLObjectType({
     addAuthor: {
       type: AuthorType,
       args: {
-        name: { type: GraphQLString },
-        age: { type: GraphQLInt },
-        id: { type: GraphQLID }
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        age: { type: new GraphQLNonNull(GraphQLInt) },
+        id: { type: new GraphQLNonNull(GraphQLID) }
       },
       resolve(parent, args) {
         authors.push(args);
         console.log(authors);
-        return authors.slice(-1);
+        return authors.slice(-1)[0];
       }
     }
   }
